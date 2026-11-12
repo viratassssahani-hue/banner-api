@@ -1,8 +1,14 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   const { type = "banner", id } = req.query;
 
   if (!id) {
-    return res.status(400).json({ error: "Missing id parameter. Example: /banner?id=902000001" });
+    return res.status(200).json({
+      status: "Banner & Icon API is Live",
+      usage: {
+        banner: "/banner?id=1001000102",
+        icon: "/icon?id=101000027"
+      }
+    });
   }
 
   const cleanId = String(id).replace(/\.png$/i, "").trim();
@@ -17,14 +23,14 @@ export default async function handler(req, res) {
           `${MY_REPO}/icons/${fileName}`,
           `${MY_REPO}/ICONS/${fileName}`,
           `${MY_REPO}/${fileName}`,
-          `${BACKUP_REPO}/icons/${fileName}`,
+          `${BACKUP_REPO}/icons/${fileName}`
         ]
       : [
           `${MY_REPO}/BANNERS/${fileName}`,
           `${MY_REPO}/banners/${fileName}`,
           `${MY_REPO}/Banner/${fileName}`,
           `${MY_REPO}/${fileName}`,
-          `${BACKUP_REPO}/BANNERS/${fileName}`,
+          `${BACKUP_REPO}/BANNERS/${fileName}`
         ];
 
   for (const url of urls) {
@@ -42,4 +48,4 @@ export default async function handler(req, res) {
   }
 
   return res.status(404).json({ error: "Image not found", searched: fileName, folder: type });
-}
+};
