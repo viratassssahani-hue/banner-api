@@ -1,6 +1,8 @@
 {
   "rewrites": [
+    { "source": "/", "destination": "/api/index" },
     { "source": "/banner", "destination": "/api/index?type=banner" },
     { "source": "/icon", "destination": "/api/index?type=icon" }
   ]
 }
+
